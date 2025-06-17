@@ -122,6 +122,7 @@
       transform: translateY(-2px);
     }
 
+    /* 顶部字母导航 - 原始样式 */
     .letter-nav {
       display: flex;
       justify-content: center;
@@ -130,6 +131,34 @@
       margin-bottom: 2rem;
     }
 
+    /* 侧边字母导航 - 调整后的样式 */
+    .letter-nav-side {
+      position: fixed;
+      right: 4px; /* 更靠边 */
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      z-index: 90; /* 低于返回顶部按钮 */
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      padding: 10px 3px;
+      border-radius: 20px;
+      box-shadow: var(--box-shadow);
+      max-height: 90vh;
+      overflow-y: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .letter-nav-side.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* 顶部字母按钮 - 原始样式 */
     .letter-btn {
       width: 48px;
       height: 48px;
@@ -142,10 +171,18 @@
       font-size: 1.1rem;
       cursor: pointer;
       transition: var(--transition);
-      box-shadow: var(--box-shadow);
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: var(--box-shadow);
+    }
+
+    /* 侧边字母按钮 - 缩小30% */
+    .letter-nav-side .letter-btn {
+      width: 34px;
+      height: 34px;
+      font-size: 0.9rem;
+      margin: 0 auto;
     }
 
     .letter-btn:hover, .letter-btn.active {
@@ -337,7 +374,7 @@
       position: absolute;
       top: -6px;
       right: -6px;
-      background: #e1e1e1;
+      background: #dddddd;
       color: #ffffff;
       font-size: 12px;
       padding: 2px 6px;
@@ -396,7 +433,6 @@
       border-radius: 4px;
     }
     
-    /* 新增样式 */
     .important-tag {
       position: absolute;
       top: -6px;
@@ -421,12 +457,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 30px;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       opacity: 0;
       transition: all 0.3s ease;
-      z-index: 100;
+      z-index: 100; /* 确保在侧边导航之上 */
     }
     
     .back-to-top.visible {
@@ -478,6 +514,11 @@
         bottom: 20px;
         right: 20px;
       }
+      
+      /* 小屏幕隐藏侧边导航 */
+      .letter-nav-side {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -485,8 +526,7 @@
   <div class="container">
     <header>
       <h1>FREETON-竞品链接查找系统</h1>
-      <p class="subtitle">©2025 POWERED BY BRACE 
-      </p>
+      <p class="subtitle">©2025 POWERED BY BRACE</p>
     </header>
 
     <div class="toolbar">
@@ -498,7 +538,11 @@
       </button>
     </div>
 
+    <!-- 顶部字母导航 -->
     <div class="letter-nav" id="letterNav"></div>
+    
+    <!-- 侧边字母导航（初始隐藏） -->
+    <div class="letter-nav-side" id="letterNavSide"></div>
     
     <div class="content" id="content">
       <div class="empty-state">
@@ -542,7 +586,7 @@
     </div>
   </div>
 
-  <!-- 新增返回顶部按钮 -->
+  <!-- 返回顶部按钮 -->
   <div class="back-to-top" id="backToTopBtn" title="返回顶部">↑</div>
 
   <script>
@@ -551,14 +595,14 @@
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
     const contentEl = document.getElementById("content");
     const letterNavEl = document.getElementById("letterNav");
+    const letterNavSideEl = document.getElementById("letterNavSide");
     const adminPanel = document.getElementById("adminPanel");
     let isAdmin = false;
     let lastUpdateTime = null;
 
-    // 从GitHub获取数据 - 使用您提供的URL
+    // 从GitHub获取数据
     async function fetchData() {
       try {
-        // 修改为您的GitHub数据URL（使用raw.githubusercontent.com访问原始文件）
         const response = await fetch('https://raw.githubusercontent.com/huanqgisi/bruce/main/data.json?t=' + Date.now());
         if (!response.ok) throw new Error('Network response was not ok');
         
@@ -577,11 +621,10 @@
       }
     }
 
-    // 数据转换函数（根据您的实际数据结构调整）
+    // 数据转换函数
     function transformData(rawData) {
       const transformed = {};
       
-      // 假设您的数据格式是数组，每个元素包含name, url等属性
       rawData.forEach(item => {
         const letter = item.name.charAt(0).toUpperCase();
         if (!alphabet.includes(letter)) return;
@@ -608,7 +651,7 @@
       return addedDate > twoWeeksAgo;
     }
 
-    // 管理员登录（使用SHA-256哈希密码验证）
+    // 管理员登录
     async function adminLogin() {
       if (isAdmin) {
         isAdmin = false;
@@ -628,7 +671,7 @@
       const hashArray = Array.from(new Uint8Array(hashBuffer));
       const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
       
-      // 与预存的哈希值比较（这个值应该从安全配置中获取）
+      // 与预存的哈希值比较
       const storedHash = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'; // 'password'的SHA256
       
       if (hashHex === storedHash) {
@@ -641,8 +684,9 @@
       }
     }
 
-    // 渲染导航字母
+    // 渲染导航
     function renderNav() {
+      // 顶部导航
       letterNavEl.innerHTML = "";
       alphabet.forEach(letter => {
         const btn = document.createElement("button");
@@ -653,9 +697,39 @@
           document.querySelectorAll(".letter-btn").forEach(b => b.classList.remove("active"));
           btn.classList.add("active");
           const section = document.getElementById(`section-${letter}`);
-          if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
+          if (section) {
+            const offset = letterNavEl.offsetHeight;
+            const topPos = section.offsetTop - offset;
+            window.scrollTo({
+              top: topPos,
+              behavior: "smooth"
+            });
+          }
         });
         letterNavEl.appendChild(btn);
+      });
+
+      // 侧边导航
+      letterNavSideEl.innerHTML = "";
+      alphabet.forEach(letter => {
+        const btn = document.createElement("button");
+        btn.className = "letter-btn";
+        btn.textContent = letter;
+        btn.dataset.letter = letter;
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".letter-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const section = document.getElementById(`section-${letter}`);
+          if (section) {
+            const offset = letterNavEl.offsetHeight;
+            const topPos = section.offsetTop - offset;
+            window.scrollTo({
+              top: topPos,
+              behavior: "smooth"
+            });
+          }
+        });
+        letterNavSideEl.appendChild(btn);
       });
 
       document.getElementById("addLetter").innerHTML =
@@ -723,6 +797,36 @@
       
       contentHTML += `<div style="height: 50px;"></div>`;
       contentEl.innerHTML = contentHTML;
+      
+      // 初始高亮检查
+      highlightCurrentLetter();
+    }
+
+    // 高亮当前字母
+    function highlightCurrentLetter() {
+      const sections = document.querySelectorAll('.letter-section');
+      let currentLetter = '';
+      
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 100 && rect.bottom >= 100) {
+          currentLetter = section.id.replace('section-', '');
+        }
+      });
+      
+      // 同时更新顶部和侧边导航的高亮状态
+      document.querySelectorAll('.letter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.letter === currentLetter);
+      });
+    }
+
+    // 检查顶部导航栏可见性
+    function checkTopNavVisibility() {
+      const rect = letterNavEl.getBoundingClientRect();
+      const isTopNavVisible = rect.bottom > 0;
+      
+      // 如果顶部导航不可见，显示侧边栏
+      letterNavSideEl.classList.toggle('visible', !isTopNavVisible);
     }
 
     // 更新等级
@@ -806,29 +910,27 @@
       renderContent();
     }
 
-    // 返回顶部功能
-    const backToTopBtn = document.getElementById('backToTopBtn');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        backToTopBtn.classList.add('visible');
-      } else {
-        backToTopBtn.classList.remove('visible');
-      }
-    });
-    
-    backToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-
     // 设置事件监听器
     function setupEventListeners() {
       document.getElementById("searchInput").addEventListener("input", handleSearch);
       document.getElementById("adminLoginBtn").addEventListener("click", adminLogin);
       document.getElementById("addLinkBtn").addEventListener("click", addLink);
+      
+      // 滚动事件监听
+      window.addEventListener('scroll', () => {
+        // 返回顶部按钮显示/隐藏
+        if (window.pageYOffset > 300) {
+          backToTopBtn.classList.add('visible');
+        } else {
+          backToTopBtn.classList.remove('visible');
+        }
+        
+        // 检查顶部导航可见性
+        checkTopNavVisibility();
+        
+        // 高亮当前字母
+        highlightCurrentLetter();
+      });
     }
 
     // 全局函数暴露
@@ -839,7 +941,7 @@
     function init() {
       renderNav();
       setupEventListeners();
-      fetchData(); // 从GitHub加载数据
+      fetchData();
     }
 
     document.addEventListener('DOMContentLoaded', init);
