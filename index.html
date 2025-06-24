@@ -33,6 +33,20 @@
             line-height: 1.6;
             background: url('https://bing.img.run/uhd.php') no-repeat center center fixed;
             background-size: cover;
+            position: relative;
+        }
+
+        /* 新增：背景覆盖层 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 300px; /* 覆盖标题区域的高度 */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
+            z-index: -1;
+            pointer-events: none;
         }
 
         .container {
@@ -49,14 +63,15 @@
         h1 {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #f3f3f3;
+            color: white; /* 修改为白色 */
             margin-bottom: 0.5rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* 增强阴影提高可读性 */
         }
 
         .subtitle {
-            color: #dddddd;
+            color: rgba(255,255,255,0.8); /* 修改为半透明白色 */
             font-size: 1.1rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .toolbar {
