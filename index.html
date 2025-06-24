@@ -443,6 +443,27 @@
             transform: translateY(-3px);
         }
 
+        /* 新增的搜索提示样式 */
+        .search-hint {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .search-hint.show {
+            opacity: 1;
+        }
+
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.1); }
@@ -493,6 +514,9 @@
 </head>
 <body>
 <div class="container">
+    <!-- 新增的搜索提示元素 -->
+    <div class="search-hint" id="searchHint">已聚焦搜索框</div>
+    
     <header>
         <h1>FREETON-竞品链接查找系统</h1>
         <p class="subtitle">©2025 POWERED BY BRACE</p>
@@ -543,6 +567,11 @@
     const letterNavSideEl = document.getElementById("letterNavSide");
     const backToTopBtn = document.getElementById("backToTopBtn");
     let lastUpdateTime = null;
+    let searchInput = document.getElementById("searchInput");
+    let searchHint = document.getElementById("searchHint");
+    let lastKeyPressTime = 0;
+    let currentInputString = '';
+    let inputTimer = null;
 
     // 从GitHub获取数据
     async function fetchData() {
@@ -763,6 +792,48 @@
         });
     }
 
+    // 显示搜索提示
+    function showSearchHint() {
+        searchHint.classList.add('show');
+        setTimeout(() => {
+            searchHint.classList.remove('show');
+        }, 1500);
+    }
+
+    // 处理全局键盘输入
+    function handleGlobalKeyPress(e) {
+        // 排除当焦点在输入框或文本区域时
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+            return;
+        }
+
+        // 只处理字母键
+        if (/^[a-zA-Z]$/.test(e.key)) {
+            const now = Date.now();
+            
+            // 如果两次按键间隔小于500ms，认为是连续输入
+            if (now - lastKeyPressTime < 500) {
+                currentInputString += e.key.toLowerCase();
+                clearTimeout(inputTimer);
+            } else {
+                currentInputString = e.key.toLowerCase();
+            }
+            
+            lastKeyPressTime = now;
+            
+            // 聚焦到搜索框并设置值
+            searchInput.value = currentInputString;
+            searchInput.focus();
+            handleSearch();
+            showSearchHint();
+            
+            // 设置定时器，如果500ms内没有新输入，则清空当前输入字符串
+            inputTimer = setTimeout(() => {
+                currentInputString = '';
+            }, 500);
+        }
+    }
+
     // 设置事件监听器
     function setupEventListeners() {
         const searchInput = document.getElementById("searchInput");
@@ -815,6 +886,9 @@
             // 高亮当前字母
             highlightCurrentLetter();
         });
+
+        // 新增：全局键盘事件监听
+        document.addEventListener('keypress', handleGlobalKeyPress);
     }
 
     // 初始化应用
