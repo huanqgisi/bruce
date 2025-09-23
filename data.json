@@ -6,6 +6,102 @@
     "createdAt": "2025-06-23T00:00:00.000Z"
   },
    {
+    "name": "dinnerlady",
+    "url": "https://www.vapedinnerlady.com/",
+    "level":3,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+ {
+    "name": "holyvaping",
+    "url": "http://www.holyvaping.com/",
+    "level":3,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+ {
+    "name": "IGNITE",
+    "url": "https://puffignite.co/",
+    "level":4,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+  {
+    "name": "lafume",
+    "url": "https://lafume.de/",
+    "level":3,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+  {
+    "name": "/ritchy",
+    "url": "https://ritchy.com/",
+    "level":1,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+  {
+    "name": "imoment",
+    "url": "https://www.imomentvape.com/",
+    "level":4,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+  {
+    "name": "megabar",
+    "url": "https://megabarshop.de/",
+    "level":4,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+  {
+    "name": "fumot",
+    "url": "https://szfumotvape.com/",
+    "level":4,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+  {
+    "name": "itsuwa",
+    "url": "https://www.itsuwacig.com/",
+    "level":4,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+  {
+    "name": "amanoo",
+    "url": "https://amanoovape.com/",
+    "level":3,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+  {
+    "name": "meebaco",
+    "url": "https://www.meebaco.com/",
+    "level":3,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+  {
+    "name": "mevol",
+    "url": "https://www.mevol.com/",
+    "level":3,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+  {
+    "name": "vapes-studio",
+    "url": "https://vapes-studio.com/",
+    "level":4,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+  {
+    "name": ".reymont",
+    "url": "https://www.reymonttech.com/",
+    "level":3,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+  {
+    "name": "vidge",
+    "url": "https://www.vidge.cn/",
+    "level":3,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+  {
+    "name": "smiss",
+    "url": "https://www.smissvape.com/",
+    "level":3,
+    "createdAt": "2025-09-23T00:00:00.000Z"
+  },
+   {
     "name": "uiii",
     "url": "https://www.uiiivape.com/Home",
     "level":3,
