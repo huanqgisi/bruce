@@ -204,12 +204,6 @@
     "createdAt": "2025-09-19T00:00:00.000Z"
   },
  {
-    "name": "ovns",
-    "url": "https://www.ovnstech.com/",
-    "level":4,
-    "createdAt": "2025-09-19T00:00:00.000Z"
-  },
- {
     "name": "fasta（悦克）",
     "url": "https://www.fastavape.com/",
     "level":4,
@@ -219,12 +213,6 @@
     "name": "instapod",
     "url": "https://instapod.net/",
     "level":4,
-    "createdAt": "2025-09-19T00:00:00.000Z"
-  },
- {
-    "name": "maskking",
-    "url": "https://www.maskkingvape.com/",
-    "level":3,
     "createdAt": "2025-09-19T00:00:00.000Z"
   },
  {
@@ -326,12 +314,6 @@
   {
     "name": "Cellular Workshop",
     "url": "https://www.cellularworkshop.com/",
-    "level": 3,
-    "createdAt": "2025-06-23T00:00:00.000Z"
-  },
-  {
-    "name": "Chillmist",
-    "url": "https://chillmist.net/",
     "level": 3,
     "createdAt": "2025-06-23T00:00:00.000Z"
   },
@@ -493,12 +475,6 @@
   },
   {
     "name": "Lem The New Smoke",
-    "url": "https://lemthenewsmoke.it",
-    "level": 2,
-    "createdAt": "2025-06-23T00:00:00.000Z"
-  },
-  {
-    "name": "Lem The New Smoke",
     "url": "https://www.inimex.it/",
     "level": 2,
     "createdAt": "2025-06-23T00:00:00.000Z"
@@ -656,12 +632,6 @@
   {
     "name": "trinods（全通电电气）",
     "url": "https://www.trinods.com/index.html",
-    "level": 2,
-    "createdAt": "2025-06-23T00:00:00.000Z"
-  },
-  {
-    "name": "Snowman",
-    "url": "https://snowman.eu/",
     "level": 2,
     "createdAt": "2025-06-23T00:00:00.000Z"
   },
