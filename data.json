@@ -186,7 +186,7 @@
     "createdAt": "2025-09-19T00:00:00.000Z"
   },
  {
-    "name": "abufan（阿不凡）",
+    "name": "ABUFAN（阿不凡）",
     "url": "https://www.abufantech.com/",
     "level":4,
     "createdAt": "2025-09-19T00:00:00.000Z"
@@ -564,7 +564,7 @@
     "createdAt": "2025-06-23T00:00:00.000Z"
   },
   {
-    "name": "nextvapor（五轮）",
+    "name": "Nextvapor（五轮）",
     "url": "https://www.nextvapor.cc/",
     "level": 3,
     "createdAt": "2025-06-23T00:00:00.000Z"
@@ -1324,12 +1324,6 @@
     "url": "https://www.airbar.com/",
     "level": 3,
     "createdAt": "2025-06-13T01:34:40.369Z"
-  },
-  {
-    "name": "ABUFUN (阿不凡)",
-    "url": "https://www.abufantech.com/",
-    "level": 3,
-    "createdAt": "2025-06-13T02:14:13.925Z"
   },
   {
     "name": "ASVAPE (傲斯唯博)",
