@@ -856,6 +856,13 @@
         return addedDate > twoWeeksAgo;
     }
 
+    function compareLinksByName(a, b) {
+        return a.name.localeCompare(b.name, "en", {
+            sensitivity: "base",
+            numeric: true
+        });
+    }
+
     // 渲染导航
     function renderNav() {
         // 顶部导航
@@ -918,11 +925,9 @@
         let contentHTML = "";
 
         Object.keys(linkData).sort().forEach(letter => {
-            linkData[letter].sort((a, b) => b.level - a.level);
-
-            const filteredLinks = linkData[letter].filter(link =>
-                link.name.toLowerCase().includes(keyword)
-            );
+            const filteredLinks = linkData[letter]
+                .filter(link => link.name.toLowerCase().includes(keyword))
+                .sort(compareLinksByName);
 
             if (filteredLinks.length === 0) return;
 
